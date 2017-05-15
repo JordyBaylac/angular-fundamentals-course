@@ -1,0 +1,27 @@
+<div class="row" *ngFor="let session of visibleSessions" >
+    <!--*ngIf="filterBy === 'all' || (filterBy === session.level.toLocaleLowerCase())"-->
+  
+  <div *ngIf="userLoggedIn()" class="col-md-1" data-toggle="votingTooltip" title="Must be logged in to vote!">
+      <upvote (vote)="toggleVote(session)" [number-of-votes]="session.voters.length"
+            [has-voted]="userHasVoted(session)"> 
+            <!--arriba como ponemos nombres con hyphens, en los input del componente
+            se debe hacer un alias, especificando dicho nombre como param del Input()-->
+      </upvote>
+  </div>
+  <div class="col-md-10" >
+    <collapsible-well>
+
+        <div well-title>
+            {{session.name}} 
+            <i *ngIf="session.voters.length > 3" class="glyphicon glyphicon-fire" style="color:red"></i>
+        </div>
+        <div well-body>
+            <h6>{{session.presenter}}</h6>
+            <span>Duration: {{session.duration | duration}}</span><br />
+            <span>Level: {{session.level}}</span>
+            <p>{{session.abstract}}</p>
+        </div>
+        
+    </collapsible-well>
+  </div>
+</div>

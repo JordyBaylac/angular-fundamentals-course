@@ -1,0 +1,39 @@
+
+<div>
+  <h1>Edit Your Profile </h1>
+  <hr>
+  <div class="col-md-4">
+    <form  [formGroup]="profileForm" autocomplete="off"
+            (ngSubmit)="saveProfile(profileForm.value)" novalidate>
+      <div class="form-group" [ngClass]="{ 'error': profileForm.controls.firstName.invalid 
+                                        && profileForm.controls.firstName.touched }">
+        <label for="firstName">First Name:</label>
+        <em *ngIf="profileForm.controls.firstName.invalid 
+                        && profileForm.controls.firstName.errors.required"
+          [class.error]>Required</em>
+        <em *ngIf="profileForm.controls.firstName.invalid
+                        && profileForm.controls.firstName.errors.pattern" [class.error]>
+        {{firstNamePatterns.getErrorMessage(profileForm.controls.firstName)}}
+        </em>
+        <input formControlName="firstName" id="firstName" type="text" class="form-control" placeholder="First Name..." />
+      </div>
+      <div class="form-group" [class.error]="!isValidLastNameControl()">
+        <label for="lastName">Last Name:</label>
+        <em *ngIf="profileForm.controls.lastName.invalid 
+                  && (profileForm.controls.lastName.touched && mouseOverLogin)"
+          [class.error]>Required</em>
+        <input formControlName="lastName" id="lastName" type="text" class="form-control" placeholder="Last Name..." />
+      </div>
+
+      <!--Los eventos no funcionan sobre botones desabilitados, es por eso -->
+      <!--    que usamos un span que envuelva al boton-->
+      <span (mouseenter)="mouseOverLogin=true" (mouseleave)="mouseOverLogin=false"> 
+      <button [disabled]="profileForm.invalid" type="submit" class="btn btn-primary">
+            Save
+      </button>
+      </span>
+      <button (click)="redirect()" type="button" class="btn btn-default">Cancel</button>
+    </form>
+  </div>
+</div>
+

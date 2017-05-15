@@ -1,0 +1,23 @@
+
+<div class="votingWidgetContainer pointable" (click)="raiseClick">
+    <div class="well votingWidget">
+
+        <div class="votingButton" [attr.disabled]="!isThereUserLogged()">
+            <!--variante 1, dos heart, 1 lleno para cuando se vota, vacio sino-->
+            <!--<i  *ngIf="hasVoted" class="glyphicon glyphicon-heart" (click)="raiseVote()"></i>-->
+            <!--<i  *ngIf="!hasVoted" class="glyphicon glyphicon-heart-empty" (click)="raiseVote()"></i>-->
+
+            <!--variante 2, un heart, rojo si se voto, blanco sino-->
+            <i class="glyphicon glyphicon-heart" (click)="raiseVote()"
+                [style.color]="iconColor">
+            </i>
+            
+
+        </div>
+
+        <div class="badge badge-inverse votingCount">
+            {{cantVotes}}
+        </div>
+
+    </div>
+</div>
